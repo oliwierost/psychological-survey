@@ -1,0 +1,51 @@
+{
+  "name": "frontend",
+  "version": "0.0.57",
+  "homepage": "https://JakubFrackowiak.github.io/animals",
+  "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "prettier": "prettier --write '**/*.{ts,tsx}'",
+    "prettier-check": "prettier --check '**/*.{ts,tsx}'"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.8",
+    "@emotion/styled": "^11.10.8",
+    "@fontsource/dancing-script": "^4.5.11",
+    "@fontsource/plus-jakarta-sans": "^4.5.11",
+    "@material-ui/styles": "^4.11.5",
+    "@mui/icons-material": "^5.11.16",
+    "@mui/material": "^5.12.3",
+    "axios": "^1.4.0",
+    "firebase": "^9.21.0",
+    "next": "12.2.3",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-google-sheets": "^0.4.0",
+    "react-hydration-provider": "^1.0.2",
+    "react-image": "^4.1.0",
+    "react-is": "^17.0.2",
+    "reactfire": "^4.2.2",
+    "styled-components": "^5.3.5",
+    "uuid": "^9.0.0",
+    "zustand": "^4.3.1",
+    "zustand-persist": "^0.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.7.7",
+    "@types/react": "^18",
+    "@types/styled-components": "^5.1.26",
+    "@typescript-eslint/eslint-plugin": "^5.33.1",
+    "@typescript-eslint/parser": "^5.33.1",
+    "bun-framework-next": "^12",
+    "eslint": "^8.22.0",
+    "eslint-config-prettier": "^8.5.0",
+    "prettier": "^2.7.1",
+    "react-refresh": "0.10.0",
+    "typescript": "^4.7.4",
+    "gh-pages": "^6.0.0"
+  },
+  "module": "index.js"
+}
