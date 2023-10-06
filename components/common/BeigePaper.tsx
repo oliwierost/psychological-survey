@@ -5,7 +5,7 @@ export function BeigePaper({
   height = "100%",
   width = "100%",
   p = "2rem",
-  borderRadius = "0.5rem",
+  borderRadius = "0.25rem",
   bgcolor = "#f7faf2",
   maxHeight = "60vh",
 }) {

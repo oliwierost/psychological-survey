@@ -41,10 +41,22 @@ export function CopyID() {
     <Box>
       <BeigePaper width="fit-content" height="fit-content">
         <Stack alignItems="center" spacing={3}>
-          <Typography variant="h5">Dziękujemy za udział w badaniu</Typography>
+          <Typography variant="h5" textAlign="center">
+            Dziękujemy za udział w badaniu
+          </Typography>
           <Divider orientation="horizontal" sx={{ width: "100%" }} />
           <Box>
-            <Typography variant="h5">ID: {id}</Typography>
+            <Typography variant="h5">
+              ID:{" "}
+              <span
+                style={{
+                  fontWeight: "bold",
+                  color: "#DC143C",
+                }}
+              >
+                {id}
+              </span>
+            </Typography>
             <ContentCopy
               onClick={() => handleClick()}
               sx={{

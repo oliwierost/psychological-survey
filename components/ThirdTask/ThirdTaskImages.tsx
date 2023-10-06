@@ -31,12 +31,13 @@ export function ThirdTaskImages() {
           }}
           key={index}
         >
-          <BeigePaper width="30rem" height="30rem" p="0">
+          <BeigePaper width="23rem" height="23rem" p="0" borderRadius="0.5rem">
             <Image
               key={index}
               src={url}
+              width="100%"
+              height="100%"
               layout="fill"
-              objectFit="contain"
               style={{
                 borderRadius: "0.5rem",
                 position: "absolute",
@@ -44,7 +45,6 @@ export function ThirdTaskImages() {
                 left: 0,
                 right: 0,
                 bottom: 0,
-                transform: "scale(0.9)",
               }}
               onLoad={() => handleImageLoad()}
               alt="animal image"

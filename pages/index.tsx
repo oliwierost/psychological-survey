@@ -5,11 +5,11 @@ import Link from "next/link"
 import { useEffect, useState } from "react"
 import { getRandomImages } from "storage/images"
 import { useFirestore, useFirestoreDocData, useStorage } from "reactfire"
-import { v4 as uuidv4 } from "uuid"
 import { useSurveyStore } from "storage/survey-store"
 import { getDownloadURL, ref } from "firebase/storage"
 import { doc } from "firebase/firestore"
 import { Client, HydrationProvider } from "react-hydration-provider"
+import { nanoid } from "nanoid"
 
 export default function index() {
   const {
@@ -72,7 +72,7 @@ export default function index() {
   }, [tempFirstImages, tempThirdImages])
 
   const setSurveyId = () => {
-    const surveyId = uuidv4()
+    const surveyId = nanoid()
     setId(surveyId)
   }
 
@@ -106,14 +106,18 @@ export default function index() {
         <Client>
           <Stack
             alignItems="center"
-            spacing={10}
+            spacing={5}
             height="100%"
             justifyContent="center"
           >
-            <BeigePaper height="20rem">
+            <BeigePaper height="fit-content">
               <Divider orientation="horizontal" />
-              <Stack height="100%" justifyContent="space-around">
-                <Typography variant="h6" textAlign="justify" color="grey.800">
+              <Stack height="100%" justifyContent="space-around" spacing={1}>
+                <Typography
+                  variant="body1"
+                  textAlign="justify"
+                  color="grey.800"
+                >
                   To zadanie dotyczy procesów poznawczych zaangażowanych w
                   postrzeganie obiektów. Za chwilę zobaczysz 30 fotografii
                   przedstawiające różne zwierzęta. Fotografie będą zmieniały się
@@ -123,7 +127,7 @@ export default function index() {
                 </Typography>
                 <Divider orientation="horizontal" />
                 <Typography
-                  variant="h6"
+                  variant="body1"
                   textAlign="justify"
                   color="grey.800"
                   alignSelf="center"

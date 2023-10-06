@@ -57,22 +57,27 @@ export function FirstTaskImages() {
           sx={{
             display: index === firstTaskIndex ? "block" : "none",
           }}
-          height="30rem"
-          width="30rem"
+          height="100%"
+          width="100%"
         >
-          <BeigePaper>
+          <BeigePaper width="23rem" height="23rem" p="0" borderRadius="0.5rem">
             <Image
               key={index}
               src={url}
+              width="100%"
+              height="100%"
               layout="fill"
-              objectFit="contain"
               style={{
                 borderRadius: "0.5rem",
-                transform: "scale(0.9)",
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
               }}
-              priority
               onLoad={() => handleImageLoad()}
               alt="animal image"
+              priority
             />
           </BeigePaper>
         </Box>

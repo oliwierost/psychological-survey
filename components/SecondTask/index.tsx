@@ -1,10 +1,11 @@
-import { Snackbar, Alert, Typography, Divider } from "@mui/material"
+import { Snackbar, Alert, Typography, Divider, Box } from "@mui/material"
 import { Stack } from "@mui/system"
 import { useEffect, useState } from "react"
 import { useSurveyStore } from "../../storage/survey-store"
-import { Slot } from "./Slot"
 import { BeigePaper } from "components/common/BeigePaper"
+import { Slot } from "./Slot"
 import { BeigeButton } from "components/common/BeigeButton"
+import { ArrowForward, ArrowRight, ArrowRightAlt } from "@mui/icons-material"
 
 export const SecondTask = () => {
   const [word, setWord] = useState("")
@@ -12,7 +13,9 @@ export const SecondTask = () => {
   const [droppedLetters, setDroppedLetters] = useState([])
   const [toastOpen, setToastOpen] = useState(false)
   const [isSolved, setIsSolved] = useState(false)
+  const [isSkipped, setIsSkipped] = useState(false)
   const [isReady, setIsReady] = useState(false)
+  const [showSkip, setShowSkip] = useState(false)
   const { setCurrentTask, currentLevel, setCurrentLevel, words } =
     useSurveyStore((state) => ({
       setCurrentTask: state.setCurrentTask,
@@ -43,14 +46,23 @@ export const SecondTask = () => {
   }, [currentLevel])
 
   useEffect(() => {
+    //show skip button after 10 seconds
+    const timeout = setTimeout(() => {
+      if (!isReady) return
+      setShowSkip(true)
+    }, 10000)
+    return () => clearTimeout(timeout)
+  }, [isReady, currentLevel])
+
+  useEffect(() => {
     const droppedWord = droppedLetters.map((l) => l?.letter).join("")
     if (droppedWord === word && droppedWord !== "" && word !== "") {
       setIsSolved(true)
     }
   }, [droppedLetters])
-  console.log(word)
+
   useEffect(() => {
-    if (isSolved) {
+    if (isSolved || isSkipped) {
       setToastOpen(true)
       const timeout = setTimeout(() => {
         if (currentLevel >= words.length) {
@@ -58,11 +70,13 @@ export const SecondTask = () => {
           return
         }
         setIsSolved(false)
+        setIsSkipped(false)
         setCurrentLevel()
+        setShowSkip(false)
       }, 2000)
       return () => clearTimeout(timeout)
     }
-  }, [isSolved])
+  }, [isSolved, isSkipped])
 
   const handleSlotClick = (index) => {
     if (!droppedLetters[index]) return
@@ -98,29 +112,48 @@ export const SecondTask = () => {
   return (
     <Stack alignItems="center" width="100%">
       {!isReady ? (
-        <BeigePaper p="1rem" height="20rem">
-          <Stack height="100%" justifyContent="space-around">
-            <Divider orientation="horizontal" />
-            <Stack alignItems="center" spacing={3}>
-              <Typography variant="h6" textAlign="center" color="grey.800">
+        <Stack
+          alignItems="center"
+          spacing={5}
+          height="100%"
+          justifyContent="center"
+        >
+          <BeigePaper height="fit-content">
+            <Stack spacing={1} height="100%">
+              <Divider orientation="horizontal" />
+              <Typography variant="body1" textAlign="justify" color="grey.800">
                 A teraz poprosimy Cię o ułożenie słów ze wszystkich liter
                 wylosowanych przez system. To zadanie będzie polegało na
                 ułożeniu trzech różnych słów.
               </Typography>
-              <BeigeButton onClick={() => setIsReady(true)}>
-                Rozpocznij zadanie
-              </BeigeButton>
+              <Divider orientation="horizontal" />
             </Stack>
-            <Divider orientation="horizontal" />
-          </Stack>
-        </BeigePaper>
+          </BeigePaper>
+          <BeigeButton onClick={() => setIsReady(true)}>
+            Rozpocznij zadanie
+          </BeigeButton>
+        </Stack>
       ) : (
-        <Stack>
+        <Stack position="relative">
           <Stack spacing={10} alignItems="center" width="fit-content">
             <BeigePaper p="1rem">
-              <Typography variant="h6" noWrap>
+              <Typography variant="body1" textAlign="center">
                 Ułóż słowo ze wszystkich liter przedstawionych poniżej.
               </Typography>
+              {showSkip ? (
+                <Box position="absolute" top="80%" right="5%">
+                  <BeigeButton
+                    px="1rem"
+                    py="0.5rem"
+                    onClick={() => setIsSkipped(true)}
+                  >
+                    <Stack direction="row" spacing={1} alignItems="center">
+                      <Typography variant="body1">Pomiń</Typography>
+                      <ArrowForward fontSize="medium" />
+                    </Stack>
+                  </BeigeButton>
+                </Box>
+              ) : null}
             </BeigePaper>
             <Stack
               spacing={2}
@@ -170,10 +203,10 @@ export const SecondTask = () => {
           >
             <Alert
               onClose={() => setToastOpen(false)}
-              severity="success"
+              severity={isSolved ? "success" : "info"}
               sx={{ width: "100%" }}
             >
-              Brawo!
+              {isSolved ? "Brawo!" : "Pominięto!"}
             </Alert>
           </Snackbar>
         </Stack>

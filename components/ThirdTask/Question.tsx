@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from "@mui/material"
+import { Box, Divider, Stack, Typography } from "@mui/material"
 import { grey } from "@mui/material/colors"
 import { AnswerCheckbox } from "./AnswerCheckbox"
 
@@ -6,9 +6,9 @@ export function Question({ questionIndex, question }) {
   const answers = [{ label: "Nie" }, { label: "Tak" }]
 
   return (
-    <Stack justifyContent="center" alignItems="center" spacing={4} width="100%">
+    <Stack justifyContent="center" alignItems="center" spacing={1} width="100%">
       <Typography
-        variant="h6"
+        variant="body1"
         align="center"
         noWrap
         sx={{
@@ -17,6 +17,7 @@ export function Question({ questionIndex, question }) {
       >
         {question}
       </Typography>
+      <Divider orientation="horizontal" width="100%" />
       <Stack
         direction="row"
         width="100%"

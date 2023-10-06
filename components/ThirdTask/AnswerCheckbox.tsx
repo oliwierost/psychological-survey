@@ -56,7 +56,7 @@ export function AnswerCheckbox({ questionIndex, answer }) {
             <Stack
               width="fit-content"
               height="fit-content"
-              bgcolor="#fffff0"
+              bgcolor="#f7faf2"
               alignItems="center"
               justifyContent="center"
             >
@@ -71,7 +71,7 @@ export function AnswerCheckbox({ questionIndex, answer }) {
             <Stack
               width="fit-content"
               height="fit-content"
-              bgcolor="#fffff0"
+              bgcolor="#f7faf2"
               justifyContent="center"
             >
               <RadioButtonUncheckedIcon />

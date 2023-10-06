@@ -16,7 +16,7 @@ export function ImReady() {
   }, [])
 
   return (
-    <Stack alignItems="center" spacing={6}>
+    <Stack alignItems="center" justifyContent="center" spacing={6} width="100%">
       <ProgressBar progress={progress} />
       <BeigeButton onClick={() => setCurrentTask(1)} disabled={progress < 100}>
         Jestem gotów

@@ -50,7 +50,7 @@ export function ThirdTask() {
       JSON.stringify(data)
     )
   }
-
+  console.log(thirdTaskCorrect)
   const checkAnswer = () => {
     const currentImage = thirdTaskImages[`zad3_zdj${thirdTaskIndex + 1}`]
     const currentAnswer = thirdTaskAnswers[`zdj${thirdTaskIndex + 1}_odp1`]
@@ -58,18 +58,18 @@ export function ThirdTask() {
       (currentImage.includes("fillers") && currentAnswer == "Tak") ||
       (!currentImage.includes("fillers") && currentAnswer == "Nie")
     ) {
-      setThirdTaskCorrect([thirdTaskIndex, 0], "Nie")
+      setThirdTaskCorrect([thirdTaskIndex, 0], "Błędna")
     } else {
-      setThirdTaskCorrect([thirdTaskIndex, 0], "Tak")
+      setThirdTaskCorrect([thirdTaskIndex, 0], "Poprawna")
     }
   }
 
-  const handleClick = () => {
+  const handleClick = async () => {
     checkAnswer()
     if (thirdTaskIndex < Object.values(thirdTaskImages).length - 1) {
       setThirdTaskIndex()
-    } else {
-      updateSheet()
+    } else if (thirdTaskCorrect["zdj50_pop1"] !== undefined) {
+      await updateSheet()
       setCurrentTask(4)
     }
   }
@@ -83,9 +83,11 @@ export function ThirdTask() {
       <Stack
         display={isReady ? "inline-flex" : "none"}
         width="100%"
+        height="100%"
         spacing={2}
         alignItems="center"
         direction="column"
+        justifyContent="center"
       >
         <ThirdTaskImages />
         <Stack
@@ -119,7 +121,8 @@ export function ThirdTask() {
       </Stack>
       <Stack
         alignItems="center"
-        justifyContent="space-evenly"
+        justifyContent="center"
+        spacing={5}
         display={isReady ? "none" : "inline-flex"}
         height="100%"
       >
