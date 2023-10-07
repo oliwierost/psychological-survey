@@ -30,6 +30,7 @@ export default function admin() {
         sx={{
           height: "100vh",
         }}
+        bgcolor="#fffff0"
       >
         {isLoggedIn ? (
           <AdminPanel />

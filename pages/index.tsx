@@ -102,6 +102,7 @@ export default function index() {
         sx={{
           height: "100vh",
         }}
+        bgcolor="#fffff0"
       >
         <HydrationProvider>
           <Client>

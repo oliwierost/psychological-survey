@@ -25,7 +25,11 @@ export default function Badanie() {
   }
   return (
     <Box bgcolor="#fffff0">
-      <Container maxWidth="md" sx={{ height: "100vh", width: "100%" }}>
+      <Container
+        maxWidth="md"
+        sx={{ height: "100vh", width: "100%" }}
+        bgcolor="#fffff0"
+      >
         <HydrationProvider>
           <Client>
             <Stack alignItems="center" spacing={2} py="5vh" height="100%">
