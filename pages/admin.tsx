@@ -1,4 +1,11 @@
-import { Container, Stack, OutlinedInput, Alert, Snackbar } from "@mui/material"
+import {
+  Container,
+  Stack,
+  OutlinedInput,
+  Alert,
+  Snackbar,
+  Box,
+} from "@mui/material"
 import { useState } from "react"
 import { BeigeButton } from "components/common/BeigeButton"
 import { AdminPanel } from "components/AdminPanel"
@@ -17,47 +24,49 @@ export default function admin() {
   }
 
   return (
-    <Container
-      maxWidth="md"
-      sx={{
-        height: "100vh",
-      }}
-    >
-      {isLoggedIn ? (
-        <AdminPanel />
-      ) : (
-        <Stack
-          spacing={4}
-          height="100%"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <OutlinedInput
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                handleClick()
-              }
-            }}
-            type="password"
-            onChange={(e) => setAdminKey(e.target.value)}
-          />
-          <BeigeButton onClick={() => handleClick()}>Zaloguj</BeigeButton>
-          <Snackbar
-            anchorOrigin={{ vertical: "top", horizontal: "center" }}
-            open={toastOpen}
-            onClose={() => setToastOpen(false)}
-            autoHideDuration={2000}
+    <Box bgcolor="#fffff0">
+      <Container
+        maxWidth="md"
+        sx={{
+          height: "100vh",
+        }}
+      >
+        {isLoggedIn ? (
+          <AdminPanel />
+        ) : (
+          <Stack
+            spacing={4}
+            height="100%"
+            alignItems="center"
+            justifyContent="center"
           >
-            <Alert
+            <OutlinedInput
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleClick()
+                }
+              }}
+              type="password"
+              onChange={(e) => setAdminKey(e.target.value)}
+            />
+            <BeigeButton onClick={() => handleClick()}>Zaloguj</BeigeButton>
+            <Snackbar
+              anchorOrigin={{ vertical: "top", horizontal: "center" }}
+              open={toastOpen}
               onClose={() => setToastOpen(false)}
-              severity="error"
-              sx={{ width: "100%" }}
+              autoHideDuration={2000}
             >
-              Błędne hasło!
-            </Alert>
-          </Snackbar>
-        </Stack>
-      )}
-    </Container>
+              <Alert
+                onClose={() => setToastOpen(false)}
+                severity="error"
+                sx={{ width: "100%" }}
+              >
+                Błędne hasło!
+              </Alert>
+            </Snackbar>
+          </Stack>
+        )}
+      </Container>
+    </Box>
   )
 }

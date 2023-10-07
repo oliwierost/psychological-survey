@@ -24,34 +24,36 @@ export default function Badanie() {
     }
   }
   return (
-    <Container maxWidth="md" sx={{ height: "100vh", width: "100%" }}>
-      <HydrationProvider>
-        <Client>
-          <Stack alignItems="center" spacing={2} py="5vh" height="100%">
-            <TaskStepper />
-            <Stack
-              alignItems="center"
-              justifyContent="center"
-              width="100%"
-              height="100%"
-            >
-              {renderTask()}
-              <Box
-                sx={{ display: currentTask == 1 ? "inline-flex" : "none" }}
+    <Box bgcolor="#fffff0">
+      <Container maxWidth="md" sx={{ height: "100vh", width: "100%" }}>
+        <HydrationProvider>
+          <Client>
+            <Stack alignItems="center" spacing={2} py="5vh" height="100%">
+              <TaskStepper />
+              <Stack
+                alignItems="center"
+                justifyContent="center"
+                width="100%"
                 height="100%"
               >
-                <FirstTask />
-              </Box>
-              <Box
-                sx={{ display: currentTask == 3 ? "inline-flex" : "none" }}
-                height="100%"
-              >
-                <ThirdTask />
-              </Box>
+                {renderTask()}
+                <Box
+                  sx={{ display: currentTask == 1 ? "inline-flex" : "none" }}
+                  height="100%"
+                >
+                  <FirstTask />
+                </Box>
+                <Box
+                  sx={{ display: currentTask == 3 ? "inline-flex" : "none" }}
+                  height="100%"
+                >
+                  <ThirdTask />
+                </Box>
+              </Stack>
             </Stack>
-          </Stack>
-        </Client>
-      </HydrationProvider>
-    </Container>
+          </Client>
+        </HydrationProvider>
+      </Container>
+    </Box>
   )
 }

@@ -1,4 +1,4 @@
-import { Container, Divider, Stack, Typography } from "@mui/material"
+import { Box, Container, Divider, Stack, Typography } from "@mui/material"
 import { BeigeButton } from "components/common/BeigeButton"
 import { BeigePaper } from "components/common/BeigePaper"
 import Link from "next/link"
@@ -96,55 +96,57 @@ export default function index() {
   }, [settings])
 
   return (
-    <Container
-      maxWidth="md"
-      sx={{
-        height: "100vh",
-      }}
-    >
-      <HydrationProvider>
-        <Client>
-          <Stack
-            alignItems="center"
-            spacing={5}
-            height="100%"
-            justifyContent="center"
-          >
-            <BeigePaper height="fit-content">
-              <Divider orientation="horizontal" />
-              <Stack height="100%" justifyContent="space-around" spacing={1}>
-                <Typography
-                  variant="body1"
-                  textAlign="justify"
-                  color="grey.800"
-                >
-                  To zadanie dotyczy procesów poznawczych zaangażowanych w
-                  postrzeganie obiektów. Za chwilę zobaczysz 30 fotografii
-                  przedstawiające różne zwierzęta. Fotografie będą zmieniały się
-                  same w równym tempie. Przyglądaj się prezentowanym zwierzętom
-                  najlepiej jak potrafisz, ponieważ po prezentacji nastąpią
-                  zadania sprawdzające Twoją spostrzegawczość.
-                </Typography>
+    <Box bgcolor="#fffff0">
+      <Container
+        maxWidth="md"
+        sx={{
+          height: "100vh",
+        }}
+      >
+        <HydrationProvider>
+          <Client>
+            <Stack
+              alignItems="center"
+              spacing={5}
+              height="100%"
+              justifyContent="center"
+            >
+              <BeigePaper height="fit-content">
                 <Divider orientation="horizontal" />
-                <Typography
-                  variant="body1"
-                  textAlign="justify"
-                  color="grey.800"
-                  alignSelf="center"
-                >
-                  Jeśli jesteś gotowy/a, aby obejrzeć zdjęcia kliknij „Dalej”.
-                </Typography>
-                <Divider orientation="horizontal" />
-              </Stack>
-            </BeigePaper>
-            <Link href="/badanie" passHref>
-              <a>
-                <BeigeButton>Dalej</BeigeButton>
-              </a>
-            </Link>
-          </Stack>
-        </Client>
-      </HydrationProvider>
-    </Container>
+                <Stack height="100%" justifyContent="space-around" spacing={1}>
+                  <Typography
+                    variant="body1"
+                    textAlign="justify"
+                    color="grey.800"
+                  >
+                    To zadanie dotyczy procesów poznawczych zaangażowanych w
+                    postrzeganie obiektów. Za chwilę zobaczysz 30 fotografii
+                    przedstawiające różne zwierzęta. Fotografie będą zmieniały
+                    się same w równym tempie. Przyglądaj się prezentowanym
+                    zwierzętom najlepiej jak potrafisz, ponieważ po prezentacji
+                    nastąpią zadania sprawdzające Twoją spostrzegawczość.
+                  </Typography>
+                  <Divider orientation="horizontal" />
+                  <Typography
+                    variant="body1"
+                    textAlign="justify"
+                    color="grey.800"
+                    alignSelf="center"
+                  >
+                    Jeśli jesteś gotowy/a, aby obejrzeć zdjęcia kliknij „Dalej”.
+                  </Typography>
+                  <Divider orientation="horizontal" />
+                </Stack>
+              </BeigePaper>
+              <Link href="/badanie" passHref>
+                <a>
+                  <BeigeButton>Dalej</BeigeButton>
+                </a>
+              </Link>
+            </Stack>
+          </Client>
+        </HydrationProvider>
+      </Container>
+    </Box>
   )
 }
