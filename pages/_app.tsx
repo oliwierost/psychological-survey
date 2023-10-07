@@ -45,10 +45,10 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>Guilds</title>
+        <title>Ankieta psychologiczna</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
         <meta name="description" content="Get working" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/animal-head.svg" />
       </Head>
       <FirebaseAppProvider firebaseConfig={firebaseConfig}>
         <FirebaseSDKProviders>
