@@ -35,16 +35,9 @@ export function ThirdTaskImages() {
             <Image
               key={index}
               src={url}
-              width="100%"
-              height="100%"
               layout="fill"
               style={{
                 borderRadius: "0.5rem",
-                position: "absolute",
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
               }}
               onLoad={() => handleImageLoad()}
               alt="animal image"

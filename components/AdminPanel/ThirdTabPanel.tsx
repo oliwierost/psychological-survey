@@ -98,7 +98,7 @@ export function ThirdTabPanel({ value, index, settings }: TabPanelProps) {
               <Divider orientation="horizontal" flexItem />
               <Grid container spacing={2} justifyContent="flex-start">
                 {questions.map((chip, index) => (
-                  <Grid item>
+                  <Grid item key={index}>
                     <Chip
                       key={index}
                       label={chip}

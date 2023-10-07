@@ -46,8 +46,10 @@ export function FirstTabPanel({ value, index, settings }: TabPanelProps) {
   const firestore = useFirestore()
 
   useEffect(() => {
-    setRandomAnimals(settings?.randomAnimals)
-    setRandomFillers(settings?.randomFillers)
+    if (settings) {
+      setRandomAnimals(settings.randomAnimals)
+      setRandomFillers(settings.randomFillers)
+    }
   }, [settings])
 
   async function getStorageContent() {
@@ -248,10 +250,10 @@ export function FirstTabPanel({ value, index, settings }: TabPanelProps) {
                     secondaryAction={
                       <Stack direction="row" alignItems="center">
                         <ListItemText primary="Dodaj folder" />
-                        <IconButton>
-                          <AddCircleOutlineIcon
-                            onClick={() => setFolderName("nowy folder")}
-                          />
+                        <IconButton
+                          onClick={() => setFolderName("nowy folder")}
+                        >
+                          <AddCircleOutlineIcon />
                         </IconButton>
                       </Stack>
                     }
@@ -267,7 +269,7 @@ export function FirstTabPanel({ value, index, settings }: TabPanelProps) {
                   {Object.keys(storageContent)
                     .sort()
                     .map((folder, folderIndex) => (
-                      <Stack>
+                      <Stack key={folderIndex}>
                         <ListItemButton
                           onClick={() => handleFolderClick(folderIndex)}
                         >
@@ -284,20 +286,22 @@ export function FirstTabPanel({ value, index, settings }: TabPanelProps) {
                               sx={{ py: 2 }}
                               secondaryAction={
                                 <Stack direction="row" alignItems="center">
-                                  <ListItemText primary="Dodaj zdjęcia" />
-                                  <input
-                                    accept="image/*"
-                                    style={{ display: "none" }}
-                                    id="add-file-button"
-                                    type="file"
-                                    onChange={(e) => addImage(e, folder)}
-                                    multiple
-                                  />
-                                  <label htmlFor="add-file-button">
-                                    <IconButton component="span">
-                                      <AddCircleOutlineIcon />
-                                    </IconButton>
-                                  </label>
+                                  <Stack direction="row" alignItems="center">
+                                    <ListItemText primary="Dodaj zdjęcia" />
+                                    <input
+                                      accept="image/*"
+                                      style={{ display: "none" }}
+                                      id="add-file-button"
+                                      type="file"
+                                      onChange={(e) => addImage(e, folder)}
+                                      multiple
+                                    />
+                                    <label htmlFor="add-file-button">
+                                      <IconButton component="span">
+                                        <AddCircleOutlineIcon />
+                                      </IconButton>
+                                    </label>
+                                  </Stack>
                                 </Stack>
                               }
                             />
@@ -324,10 +328,10 @@ export function FirstTabPanel({ value, index, settings }: TabPanelProps) {
                                       : null,
                                 }}
                                 secondaryAction={
-                                  <IconButton>
-                                    <DeleteIcon
-                                      onClick={() => deleteImage(folder, file)}
-                                    />
+                                  <IconButton
+                                    onClick={() => deleteImage(folder, file)}
+                                  >
+                                    <DeleteIcon />
                                   </IconButton>
                                 }
                               >

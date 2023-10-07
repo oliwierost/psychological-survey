@@ -126,7 +126,7 @@ export function SecondTabPanel({ value, index, settings }: TabPanelProps) {
               <Divider />
               <Grid container spacing={2} justifyContent="flex-start">
                 {words.map((chip, index) => (
-                  <Grid item>
+                  <Grid item key={index}>
                     <Chip
                       key={index}
                       label={chip}

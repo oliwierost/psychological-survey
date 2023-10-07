@@ -25,8 +25,12 @@ export function Question({ questionIndex, question }) {
         position="relative"
         alignItems="center"
       >
-        {answers.map((answer) => (
-          <AnswerCheckbox questionIndex={questionIndex} answer={answer} />
+        {answers.map((answer, index) => (
+          <AnswerCheckbox
+            questionIndex={questionIndex}
+            answer={answer}
+            key={index}
+          />
         ))}
       </Stack>
     </Stack>

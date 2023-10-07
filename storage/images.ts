@@ -17,7 +17,7 @@ export const getImageNames = async (storage) => {
       animals.push(imageNames)
     })
   )
-  console.log(animals)
+
   const firstFillersRef = ref(storage, "fillers1")
   const firstFillersItems = await listAll(firstFillersRef)
   const firstFillers = firstFillersItems.items.map(
@@ -66,7 +66,7 @@ type AnimalPair = [Animal, Animal]
 function getRandomAnimals(animals: AnimalPair[][]): [Animal[], AnimalPair[][]] {
   const firstAnimals: Animal[] = []
   const remainingAnimals: AnimalPair[] = []
-  console.log("animals", animals)
+
   animals.forEach((animalArr) => {
     animalArr.forEach((animalPair) => {
       if (Math.random() < 0.5) {

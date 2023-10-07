@@ -27,7 +27,7 @@ export default function Badanie() {
     <Container maxWidth="md" sx={{ height: "100vh", width: "100%" }}>
       <HydrationProvider>
         <Client>
-          <Stack alignItems="center" spacing={6} py="10vh" height="100%">
+          <Stack alignItems="center" spacing={2} py="5vh" height="100%">
             <TaskStepper />
             <Stack
               alignItems="center"

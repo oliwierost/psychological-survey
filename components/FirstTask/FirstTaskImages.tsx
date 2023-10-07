@@ -59,21 +59,15 @@ export function FirstTaskImages() {
           }}
           height="100%"
           width="100%"
+          key={index}
         >
           <BeigePaper width="23rem" height="23rem" p="0" borderRadius="0.5rem">
             <Image
               key={index}
               src={url}
-              width="100%"
-              height="100%"
               layout="fill"
               style={{
                 borderRadius: "0.5rem",
-                position: "absolute",
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
               }}
               onLoad={() => handleImageLoad()}
               alt="animal image"

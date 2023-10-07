@@ -40,9 +40,7 @@ export function AnswerCheckbox({ questionIndex, answer }) {
 
   return (
     <FormControlLabel
-      sx={{
-        position: "relative",
-      }}
+      sx={{}}
       checked={
         thirdTaskAnswers[`zdj${thirdTaskIndex + 1}_odp${questionIndex + 1}`] ===
         answer.label
@@ -79,12 +77,7 @@ export function AnswerCheckbox({ questionIndex, answer }) {
           }
         />
       }
-      label={
-        <Typography noWrap position="absolute" bottom="-1.5rem">
-          {answer.label}
-        </Typography>
-      }
-      labelPlacement="bottom"
+      label={<Typography noWrap>{answer.label}</Typography>}
     />
   )
 }

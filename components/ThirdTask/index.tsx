@@ -1,12 +1,13 @@
 import axios from "axios"
-import { Stack } from "@mui/material"
+import { Stack, Typography } from "@mui/material"
 import { Question } from "./Question"
 import { ThirdTaskImages } from "./ThirdTaskImages"
 import { BeigePaper } from "components/common/BeigePaper"
 import { BeigeButton } from "../common/BeigeButton"
 import { useSurveyStore } from "storage/survey-store"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { ThirdTaskQuestion } from "./ThirdTaskQuestion"
+import { ArrowForward, Done } from "@mui/icons-material"
 
 export function ThirdTask() {
   const [isReady, setIsReady] = useState(false)
@@ -50,7 +51,7 @@ export function ThirdTask() {
       JSON.stringify(data)
     )
   }
-  console.log(thirdTaskCorrect)
+
   const checkAnswer = () => {
     const currentImage = thirdTaskImages[`zad3_zdj${thirdTaskIndex + 1}`]
     const currentAnswer = thirdTaskAnswers[`zdj${thirdTaskIndex + 1}_odp1`]
@@ -68,15 +69,19 @@ export function ThirdTask() {
     checkAnswer()
     if (thirdTaskIndex < Object.values(thirdTaskImages).length - 1) {
       setThirdTaskIndex()
-    } else if (thirdTaskCorrect["zdj50_pop1"] !== undefined) {
-      await updateSheet()
-      setCurrentTask(4)
     }
   }
 
   const handleReady = () => {
     setIsReady(true)
   }
+
+  useEffect(() => {
+    if (thirdTaskCorrect[`zdj${thirdTaskIndex + 1}_pop1`] !== undefined) {
+      updateSheet()
+      setCurrentTask(4)
+    }
+  }, [thirdTaskCorrect])
 
   return (
     <Stack width="100%" height="100%" justifyContent="space-between">
@@ -96,10 +101,14 @@ export function ThirdTask() {
           spacing={2}
           width="100%"
         >
-          <BeigePaper>
-            <Stack pb="2rem" width="100%">
+          <BeigePaper p="1rem">
+            <Stack width="100%">
               {questions.map((question, questionIndex) => (
-                <Question question={question} questionIndex={questionIndex} />
+                <Question
+                  question={question}
+                  questionIndex={questionIndex}
+                  key={questionIndex}
+                />
               ))}
             </Stack>
           </BeigePaper>
@@ -115,7 +124,24 @@ export function ThirdTask() {
               })
               .some((answer) => answer === true)}
           >
-            Następne zdjęcie
+            <Stack
+              width="100%"
+              justifyContent="center"
+              alignItems="center"
+              direction="row"
+              spacing={1}
+            >
+              <Typography varinat="h6">
+                {thirdTaskIndex == Object.values(thirdTaskImages).length - 1
+                  ? "Zakończ"
+                  : "Dalej"}
+              </Typography>
+              {thirdTaskIndex == Object.values(thirdTaskImages).length - 1 ? (
+                <Done fontSize="small" />
+              ) : (
+                <ArrowForward fontSize="small" />
+              )}
+            </Stack>
           </BeigeButton>
         </Stack>
       </Stack>

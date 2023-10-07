@@ -168,7 +168,7 @@ export const SecondTask = () => {
                 justifyContent="center"
               >
                 {droppedLetters.map((letter, index) => (
-                  <BeigePaper p="0">
+                  <BeigePaper p="0" key={index}>
                     <Slot
                       letter={letter}
                       index={index}
@@ -184,7 +184,7 @@ export const SecondTask = () => {
                 justifyContent="center"
               >
                 {letters.map((letter, index) => (
-                  <BeigePaper p="0">
+                  <BeigePaper p="0" key={index}>
                     <Slot
                       letter={letter}
                       index={index}

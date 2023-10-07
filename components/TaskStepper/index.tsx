@@ -10,22 +10,11 @@ export function TaskStepper() {
     currentTask: state.currentTask,
   }))
   const steps = ["Oglądaj zdjęcia", "Ułóż wyraz", "Opowiedz na pytania"]
-  const stepperIcons = [Photo, Extension, BallotIcon]
+  const stepperIcons = [<Photo />, <Extension />, <BallotIcon />]
 
   useEffect(() => {
     setActiveStep(currentTask - 1)
   }, [currentTask])
-
-  const getLabel = (index) => {
-    switch (index) {
-      case 0:
-        return "Oglądaj zdjęcia"
-      case 1:
-        return "Ułóż wyraz"
-      case 2:
-        return "Opowiedz na pytania "
-    }
-  }
 
   return (
     <Stepper
@@ -35,13 +24,11 @@ export function TaskStepper() {
     >
       {steps.map((label, index) => {
         return (
-          <Step key={label} completed>
+          <Step key={label} completed key={index}>
             <StepLabel
-              StepIconComponent={
-                index < activeStep ? CheckBox : stepperIcons[index]
-              }
+              icon={index < activeStep ? <CheckBox /> : stepperIcons[index]}
             >
-              <Typography>{getLabel(index)}</Typography>
+              <Typography>{label}</Typography>
             </StepLabel>
           </Step>
         )
