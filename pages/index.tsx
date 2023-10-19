@@ -7,9 +7,10 @@ import { getRandomImages } from "storage/images"
 import { useFirestore, useFirestoreDocData, useStorage } from "reactfire"
 import { useSurveyStore } from "storage/survey-store"
 import { getDownloadURL, ref } from "firebase/storage"
-import { doc } from "firebase/firestore"
+import { doc, query } from "firebase/firestore"
 import { Client, HydrationProvider } from "react-hydration-provider"
 import { nanoid } from "nanoid"
+import { useRouter } from "next/router"
 
 export default function index() {
   const {
@@ -37,6 +38,8 @@ export default function index() {
   const firestore = useFirestore()
   const settingsRef = doc(firestore, "admin/Settings")
   const { data: settings } = useFirestoreDocData(settingsRef)
+  const router = useRouter()
+  const { id } = router.query
 
   const setImages = async () => {
     const { firstTaskImages: firstImages, thirdTaskImages: thirdImages } =
@@ -72,8 +75,7 @@ export default function index() {
   }, [tempFirstImages, tempThirdImages])
 
   const setSurveyId = () => {
-    const surveyId = nanoid()
-    setId(surveyId)
+    setId(id)
   }
 
   useEffect(() => {
@@ -139,9 +141,17 @@ export default function index() {
                   <Divider orientation="horizontal" />
                 </Stack>
               </BeigePaper>
-              <Link href="/badanie" passHref>
+              <Link
+                href={{
+                  pathname: "/badanie",
+                  query: { id },
+                }}
+                passHref
+              >
                 <a>
-                  <BeigeButton>Dalej</BeigeButton>
+                  <BeigeButton>
+                    {id == undefined ? "Brak id!" : "Dalej"}
+                  </BeigeButton>
                 </a>
               </Link>
             </Stack>

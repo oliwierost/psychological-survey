@@ -8,11 +8,11 @@ import { useSurveyStore } from "storage/survey-store"
 import { useEffect, useState } from "react"
 import { ThirdTaskQuestion } from "./ThirdTaskQuestion"
 import { ArrowForward, Done } from "@mui/icons-material"
+import { useRouter } from "next/router"
 
 export function ThirdTask() {
   const [isReady, setIsReady] = useState(false)
   const {
-    id,
     setCurrentTask,
     firstTaskImages,
     setThirdTaskIndex,
@@ -24,7 +24,6 @@ export function ThirdTask() {
     setThirdTaskCorrect,
     questions,
   } = useSurveyStore((state) => ({
-    id: state.id,
     setCurrentTask: state.setCurrentTask,
     firstTaskImages: state.firstTaskImages,
     thirdTaskAnswers: state.thirdTaskAnswers,
@@ -36,8 +35,11 @@ export function ThirdTask() {
     setThirdTaskCorrect: state.setThirdTaskCorrect,
     questions: state.questions,
   }))
+  const router = useRouter()
+  const { id } = router.query
 
   const updateSheet = async () => {
+    if (id === undefined) return
     const data = {
       id: id,
       ...firstTaskImages,
