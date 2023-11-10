@@ -160,19 +160,21 @@ export default function index() {
                   <Divider orientation="horizontal" />
                 </Stack>
               </BeigePaper>
-              <Link
-                href={{
-                  pathname: "/badanie",
-                  query: { id },
-                }}
-                passHref
-              >
-                <a>
-                  <BeigeButton disabled={id == undefined}>
-                    {id == undefined ? "Brak id!" : "Dalej"}
-                  </BeigeButton>
-                </a>
-              </Link>
+              {id !== undefined ? (
+                <Link
+                  href={{
+                    pathname: "/badanie",
+                    query: { id },
+                  }}
+                  passHref
+                >
+                  <a>
+                    <BeigeButton>Dalej</BeigeButton>
+                  </a>
+                </Link>
+              ) : (
+                <BeigeButton disabled={true}>Brak id!</BeigeButton>
+              )}
             </Stack>
           </Client>
         </HydrationProvider>
