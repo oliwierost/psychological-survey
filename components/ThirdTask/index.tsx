@@ -15,8 +15,10 @@ export function ThirdTask() {
   const {
     setCurrentTask,
     firstTaskImages,
+    sortedFirstTaskImages,
     setThirdTaskIndex,
     thirdTaskImages,
+    sortedThirdTaskImages,
     thirdTaskIndex,
     thirdTaskAnswers,
     thirdTaskAnswerTimes,
@@ -26,8 +28,10 @@ export function ThirdTask() {
   } = useSurveyStore((state) => ({
     setCurrentTask: state.setCurrentTask,
     firstTaskImages: state.firstTaskImages,
+    sortedFirstTaskImages: state.sortedFirstTaskImages,
     thirdTaskAnswers: state.thirdTaskAnswers,
     thirdTaskImages: state.thirdTaskImages,
+    sortedThirdTaskImages: state.sortedThirdTaskImages,
     thirdTaskIndex: state.thirdTaskIndex,
     setThirdTaskIndex: state.setThirdTaskIndex,
     thirdTaskAnswerTimes: state.thirdTaskAnswerTimes,
@@ -44,6 +48,8 @@ export function ThirdTask() {
       id: id,
       ...firstTaskImages,
       ...thirdTaskImages,
+      ...sortedFirstTaskImages,
+      ...sortedThirdTaskImages,
       ...thirdTaskAnswers,
       ...thirdTaskAnswerTimes,
       ...thirdTaskCorrect,
@@ -133,7 +139,7 @@ export function ThirdTask() {
               direction="row"
               spacing={1}
             >
-              <Typography varinat="h6">
+              <Typography variant="h6">
                 {thirdTaskIndex == Object.values(thirdTaskImages).length - 1
                   ? "Zakończ"
                   : "Dalej"}

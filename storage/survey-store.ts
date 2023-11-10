@@ -8,12 +8,16 @@ interface SurveyStore {
   setCurrentTask: (currentTask: number) => void
   firstTaskImages: object
   setFirstTaskImages: (firstTaskImages: string[]) => void
+  sortedFirstTaskImages: object
+  setSortedFirstTaskImages: (sortedFirstTaskImages: object) => void
   firstTaskIndex: number
   setFirstTaskIndex: () => void
   firstTaskDownloadURLs: string[]
   setFirstTaskDownloadURLs: (urls: string[]) => void
   thirdTaskImages: object
   setThirdTaskImages: (thirdTaskImages: string[]) => void
+  sortedThirdTaskImages: object
+  setSortedThirdTaskImages: (sortedThirdTaskImages: object) => void
   thirdTaskIndex: number
   setThirdTaskIndex: () => void
   thirdTaskDownloadURLs: string[]
@@ -39,9 +43,11 @@ interface SurveyStore {
 const initialState = {
   currentTask: 0,
   firstTaskImages: {},
+  sortedFirstTaskImages: {},
   firstTaskIndex: 0,
   firstTaskDownloadURLs: [],
   thirdTaskImages: {},
+  sortedThirdTaskImages: {},
   thirdTaskIndex: 0,
   thirdTaskDownloadURLs: [],
   thirdTaskAnswers: [],
@@ -64,12 +70,20 @@ export const useSurveyStore = create(
         set({
           firstTaskImages: setFirstTaskImages(firstTaskImages, get),
         }),
+      setSortedFirstTaskImages: (sortedFirstTaskImages) =>
+        set({
+          sortedFirstTaskImages: sortedFirstTaskImages,
+        }),
       setFirstTaskIndex: () =>
         set({ firstTaskIndex: get().firstTaskIndex + 1 }),
       setFirstTaskDownloadURLs: (urls) => set({ firstTaskDownloadURLs: urls }),
       setThirdTaskImages: (thirdTaskImages) =>
         set({
           thirdTaskImages: setThirdTaskImages(thirdTaskImages, get),
+        }),
+      setSortedThirdTaskImages: (sortedThirdTaskImages) =>
+        set({
+          sortedThirdTaskImages: sortedThirdTaskImages,
         }),
       setThirdTaskIndex: () =>
         set({ thirdTaskIndex: get().thirdTaskIndex + 1 }),

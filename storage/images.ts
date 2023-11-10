@@ -53,19 +53,22 @@ export const getRandomImages = async (storage) => {
   const thirdTaskImages = [...thirdAnimals, ...secondFillers].sort(
     () => Math.random() - 0.5
   )
-
+  const sortedFirstTaskImages = sortAnimals(firstTaskImages, 1)
+  const sortedThirdTaskImages = sortAnimals(thirdTaskImages, 3)
   return {
     firstTaskImages: firstTaskImages,
     thirdTaskImages: thirdTaskImages,
+    sortedFirstTaskImages: sortedFirstTaskImages,
+    sortedThirdTaskImages: sortedThirdTaskImages,
   }
 }
 
 type Animal = string
 type AnimalPair = [Animal, Animal]
 
-function getRandomAnimals(animals: AnimalPair[][]): [Animal[], AnimalPair[][]] {
+function getRandomAnimals(animals: AnimalPair[]) {
   const firstAnimals: Animal[] = []
-  const remainingAnimals: AnimalPair[] = []
+  const remainingAnimals: Animal[] = []
 
   animals.forEach((animalArr) => {
     animalArr.forEach((animalPair) => {
@@ -83,4 +86,27 @@ function getRandomAnimals(animals: AnimalPair[][]): [Animal[], AnimalPair[][]] {
     firstAnimals,
     thirdAnimals: remainingAnimals,
   }
+}
+
+function sortAnimals(animals: string[], task: number) {
+  const sortedAnimals = {
+    dog: [],
+    cat: [],
+    pig: [],
+    cow: [],
+    rabbit: [],
+    filler: [],
+  }
+  const animalNames = {}
+  animals.forEach((animal) => {
+    Object.keys(sortedAnimals).forEach((animalName) => {
+      if (animal.includes(animalName)) {
+        sortedAnimals[animalName].push(animal)
+      }
+      sortedAnimals[animalName].forEach((animal, idx) => {
+        animalNames[`zad${task}_${animalName + (idx + 1)}`] = animal
+      })
+    })
+  })
+  return animalNames
 }

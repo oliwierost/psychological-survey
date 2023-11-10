@@ -16,8 +16,10 @@ export default function index() {
   const {
     reset: resetStore,
     setFirstTaskImages,
+    setSortedFirstTaskImages,
     setFirstTaskDownloadURLs,
     setThirdTaskImages,
+    setSortedThirdTaskImages,
     setThirdTaskDownloadURLs,
     setId,
     setWords,
@@ -26,14 +28,18 @@ export default function index() {
     reset: state.reset,
     setFirstTaskDownloadURLs: state.setFirstTaskDownloadURLs,
     setFirstTaskImages: state.setFirstTaskImages,
+    setSortedFirstTaskImages: state.setSortedFirstTaskImages,
     setThirdTaskDownloadURLs: state.setThirdTaskDownloadURLs,
     setThirdTaskImages: state.setThirdTaskImages,
+    setSortedThirdTaskImages: state.setSortedThirdTaskImages,
     setId: state.setId,
     setWords: state.setWords,
     setQuestions: state.setQuestions,
   }))
   const [tempFirstImages, setTempFirstImages] = useState([])
   const [tempThirdImages, setTempThirdImages] = useState([])
+  const [tempSortedFirstImages, setTempSortedFirstImages] = useState(null)
+  const [tempSortedThirdImages, setTempSortedThirdImages] = useState(null)
   const storage = useStorage()
   const firestore = useFirestore()
   const settingsRef = doc(firestore, "admin/Settings")
@@ -42,10 +48,16 @@ export default function index() {
   const { id } = router.query
 
   const setImages = async () => {
-    const { firstTaskImages: firstImages, thirdTaskImages: thirdImages } =
-      await getRandomImages(storage)
+    const {
+      firstTaskImages: firstImages,
+      thirdTaskImages: thirdImages,
+      sortedFirstTaskImages: sortedFirstImages,
+      sortedThirdTaskImages: sortedThirdImages,
+    } = await getRandomImages(storage)
     setTempFirstImages(firstImages)
     setTempThirdImages(thirdImages)
+    setTempSortedFirstImages(sortedFirstImages)
+    setTempSortedThirdImages(sortedThirdImages)
   }
 
   const setImageURLs = async (images, task) => {
@@ -70,12 +82,19 @@ export default function index() {
   useEffect(() => {
     setFirstTaskImages(tempFirstImages)
     setThirdTaskImages(tempThirdImages)
+    setSortedFirstTaskImages(tempSortedFirstImages)
+    setSortedThirdTaskImages(tempSortedThirdImages)
     setImageURLs(tempFirstImages, 1)
     setImageURLs(tempThirdImages, 3)
-  }, [tempFirstImages, tempThirdImages])
+  }, [
+    tempFirstImages,
+    tempThirdImages,
+    tempSortedFirstImages,
+    tempSortedThirdImages,
+  ])
 
   const setSurveyId = () => {
-    setId(id)
+    setId(id as string)
   }
 
   useEffect(() => {
@@ -103,8 +122,8 @@ export default function index() {
         maxWidth="md"
         sx={{
           height: "100vh",
+          bgcolor: "#fffff0",
         }}
-        bgcolor="#fffff0"
       >
         <HydrationProvider>
           <Client>
@@ -149,7 +168,7 @@ export default function index() {
                 passHref
               >
                 <a>
-                  <BeigeButton>
+                  <BeigeButton disabled={id == undefined}>
                     {id == undefined ? "Brak id!" : "Dalej"}
                   </BeigeButton>
                 </a>
