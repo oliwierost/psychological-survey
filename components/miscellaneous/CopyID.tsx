@@ -12,7 +12,7 @@ export function CopyID() {
           <Typography variant="h5" textAlign="center">
             {id == undefined
               ? "Wyniki nie zostały zapisane z uwagi na brak ID."
-              : "Wyniki badania zostały zapisane. Dziękujemy za udział!"}
+              : "Wyniki badania zostały zapisane. Dziękujemy za udział! Teraz moesz zamknąć stronę i kontynuować badanie na platformie qualtrics."}
           </Typography>
           <Divider orientation="horizontal" sx={{ width: "100%" }} />
         </Stack>

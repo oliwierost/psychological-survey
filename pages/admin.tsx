@@ -29,8 +29,8 @@ export default function admin() {
         maxWidth="md"
         sx={{
           height: "100vh",
+          bgcolor: "#fffff0",
         }}
-        bgcolor="#fffff0"
       >
         {isLoggedIn ? (
           <AdminPanel />

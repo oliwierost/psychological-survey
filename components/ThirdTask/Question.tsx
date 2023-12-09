@@ -1,5 +1,4 @@
-import { Box, Divider, Stack, Typography } from "@mui/material"
-import { grey } from "@mui/material/colors"
+import { Divider, Stack, Typography } from "@mui/material"
 import { AnswerCheckbox } from "./AnswerCheckbox"
 
 export function Question({ questionIndex, question }) {
@@ -17,7 +16,12 @@ export function Question({ questionIndex, question }) {
       >
         {question}
       </Typography>
-      <Divider orientation="horizontal" width="100%" />
+      <Divider
+        orientation="horizontal"
+        sx={{
+          width: "100%",
+        }}
+      />
       <Stack
         direction="row"
         width="100%"

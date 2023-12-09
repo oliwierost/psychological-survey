@@ -27,8 +27,7 @@ export default function Badanie() {
     <Box bgcolor="#fffff0">
       <Container
         maxWidth="md"
-        sx={{ height: "100vh", width: "100%" }}
-        bgcolor="#fffff0"
+        sx={{ height: "100vh", width: "100%", bgcolor: "#fffff0" }}
       >
         <HydrationProvider>
           <Client>
