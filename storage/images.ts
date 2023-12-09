@@ -89,23 +89,47 @@ function getRandomAnimals(animals: AnimalPair[]) {
 }
 
 function sortAnimals(animals: string[], task: number) {
+  const animalsPol = {
+    dog: "pies",
+    cat: "kot",
+    pig: "swinia",
+    cow: "krowa",
+    rabbit: "krol",
+  }
   const sortedAnimals = {
     dog: [],
     cat: [],
     pig: [],
     cow: [],
     rabbit: [],
-    filler: [],
+    filler: {
+      dog: [],
+      cat: [],
+      pig: [],
+      cow: [],
+      rabbit: [],
+    },
   }
   const animalNames = {}
   animals.forEach((animal) => {
     Object.keys(sortedAnimals).forEach((animalName) => {
-      if (animal.includes(animalName)) {
-        sortedAnimals[animalName].push(animal)
+      if (animalName === "filler" && animal.includes("filler")) {
+        Object.keys(sortedAnimals.filler).forEach((fillerName, idx) => {
+          if (animal.includes(animalsPol[fillerName])) {
+            sortedAnimals.filler[fillerName].push(animal)
+          }
+          sortedAnimals.filler[fillerName].forEach((animal, idx) => {
+            animalNames[`zad${task}_filler_${fillerName + (idx + 1)}`] = animal
+          })
+        })
+      } else {
+        if (animal.includes(animalName)) {
+          sortedAnimals[animalName].push(animal)
+          sortedAnimals[animalName].forEach((animal, idx) => {
+            animalNames[`zad${task}_${animalName + (idx + 1)}`] = animal
+          })
+        }
       }
-      sortedAnimals[animalName].forEach((animal, idx) => {
-        animalNames[`zad${task}_${animalName + (idx + 1)}`] = animal
-      })
     })
   })
   return animalNames

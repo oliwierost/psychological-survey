@@ -1,9 +1,10 @@
-import { FirebaseStorage, getDownloadURL, ref } from "firebase/storage"
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
 
 interface SurveyStore {
   reset: () => void
+  sortedAnimals: object
+  setSortedAnimals: (animal: string) => void
   currentTask: number
   setCurrentTask: (currentTask: number) => void
   firstTaskImages: object
@@ -24,6 +25,8 @@ interface SurveyStore {
   setThirdTaskDownloadURLs: (urls: string[]) => void
   thirdTaskAnswers: string[]
   setThirdTaskAnswers: (indexes: number[], answer: string) => void
+  sortedThirdTaskAnswers: object
+  setSortedThirdTaskAnswers: (idx: number) => void
   thirdTaskAnswerTimes: number[]
   setThirdTaskAnswerTimes: (indexes: number[], time: number) => void
   thirdTaskCorrect: string[]
@@ -41,7 +44,21 @@ interface SurveyStore {
 }
 
 const initialState = {
-  currentTask: 0,
+  currentTask: 3,
+  sortedAnimals: {
+    pies: [],
+    kot: [],
+    swinia: [],
+    krowa: [],
+    krol: [],
+    filler: {
+      pies: [],
+      kot: [],
+      swinia: [],
+      krowa: [],
+      krol: [],
+    },
+  },
   firstTaskImages: {},
   sortedFirstTaskImages: {},
   firstTaskIndex: 0,
@@ -51,6 +68,7 @@ const initialState = {
   thirdTaskIndex: 0,
   thirdTaskDownloadURLs: [],
   thirdTaskAnswers: [],
+  sortedThirdTaskAnswers: {},
   thirdTaskAnswerTimes: [],
   thirdTaskCorrect: [],
   currentLevel: 1,
@@ -65,6 +83,10 @@ export const useSurveyStore = create(
     (set, get) => ({
       ...initialState,
       reset: () => set(initialState),
+      setSortedAnimals: (animal) =>
+        set({
+          sortedAnimals: setSortedAnimals(animal, get),
+        }),
       setCurrentTask: (currentTask) => set({ currentTask: currentTask }),
       setFirstTaskImages: (firstTaskImages) =>
         set({
@@ -91,6 +113,10 @@ export const useSurveyStore = create(
       setThirdTaskAnswers: (indexes, answer) =>
         set({
           thirdTaskAnswers: setThirdTaskAnswers(indexes, answer, get),
+        }),
+      setSortedThirdTaskAnswers: (idx) =>
+        set({
+          sortedThirdTaskAnswers: setSortedThirdTaskAnswers(idx, get),
         }),
       setThirdTaskAnswerTimes: (indexes, time) =>
         set({
@@ -160,4 +186,62 @@ function setThirdTaskCorrect(indexes, correct, get) {
     [`zdj${indexes[0] + 1}_pop${indexes[1] + 1}`]: correct,
   }
   return updatedCorrect
+}
+
+function setSortedAnimals(animal, get) {
+  const animalsPol = {
+    dog: "pies",
+    cat: "kot",
+    pig: "swinia",
+    cow: "krowa",
+    rabbit: "krol",
+  }
+  const sortedAnimals = get().sortedAnimals
+  const animalGroup = animal.includes("filler") ? "filler" : "animal"
+  let animalKind
+  Object.values(animalsPol).forEach((animal) => {
+    if (animal.includes(animal)) {
+      animalKind = animal
+    }
+  })
+  if (
+    animalGroup === "filler" &&
+    !sortedAnimals[animalGroup][animalKind].includes(animal)
+  ) {
+    sortedAnimals[animalGroup][animalKind].push(animal)
+  } else if (
+    animalGroup === "animal" &&
+    !sortedAnimals[animalKind].includes(animal)
+  ) {
+    sortedAnimals[animalKind].push(animal)
+  }
+  return sortedAnimals
+}
+
+function setSortedThirdTaskAnswers(idx, get) {
+  const sortedAnswers = get().sortedThirdTaskAnswers
+  const sortedThirdTaskImages = get().sortedThirdTaskImages
+  const thirdTaskAnswers = get().thirdTaskAnswers
+  const answer = thirdTaskAnswers[`zdj${idx + 1}_odp1`]
+  const thirdTaskImages = get().thirdTaskImages
+  const image = thirdTaskImages[`zad3_zdj${idx + 1}`]
+  let propName
+  Object.values(sortedThirdTaskImages).forEach((img) => {
+    if (img == image) {
+      const key = Object.keys(sortedThirdTaskImages).find(
+        (key) => sortedThirdTaskImages[key] === img
+      )
+      const keySplit = key.split("_")
+      if (key.includes("filler")) {
+        propName = keySplit[1] + "_" + keySplit[2]
+      } else {
+        propName = keySplit[1]
+      }
+    }
+  })
+
+  return {
+    ...sortedAnswers,
+    [`zad3_odp_${propName}`]: answer,
+  }
 }

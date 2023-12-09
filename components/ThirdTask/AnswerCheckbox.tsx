@@ -13,6 +13,7 @@ export function AnswerCheckbox({ questionIndex, answer }) {
     thirdTaskAnswers,
     setThirdTaskAnswers,
     setThirdTaskAnswerTimes,
+    setSortedThirdTaskAnswers,
   } = useSurveyStore((state) => ({
     currentTask: state.currentTask,
     thirdTaskIndex: state.thirdTaskIndex,
@@ -20,6 +21,7 @@ export function AnswerCheckbox({ questionIndex, answer }) {
     setThirdTaskAnswers: state.setThirdTaskAnswers,
     setThirdTaskAnswerTimes: state.setThirdTaskAnswerTimes,
     thirdTaskAnswerTimes: state.thirdTaskAnswerTimes,
+    setSortedThirdTaskAnswers: state.setSortedThirdTaskAnswers,
   }))
 
   const getDisplayTime = () => {
@@ -36,6 +38,7 @@ export function AnswerCheckbox({ questionIndex, answer }) {
     const answerTime = time - displayTime
     setThirdTaskAnswers([thirdTaskIndex, questionIndex], event.target.value)
     setThirdTaskAnswerTimes([thirdTaskIndex, questionIndex], answerTime / 1000)
+    setSortedThirdTaskAnswers(thirdTaskIndex)
   }
 
   return (

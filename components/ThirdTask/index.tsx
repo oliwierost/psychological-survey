@@ -24,6 +24,7 @@ export function ThirdTask() {
     thirdTaskAnswerTimes,
     thirdTaskCorrect,
     setThirdTaskCorrect,
+    sortedThirdTaskAnswers,
     questions,
   } = useSurveyStore((state) => ({
     setCurrentTask: state.setCurrentTask,
@@ -34,6 +35,8 @@ export function ThirdTask() {
     sortedThirdTaskImages: state.sortedThirdTaskImages,
     thirdTaskIndex: state.thirdTaskIndex,
     setThirdTaskIndex: state.setThirdTaskIndex,
+    sortedThirdTaskAnswers: state.sortedThirdTaskAnswers,
+    setSortedThirdTaskAnswers: state.setSortedThirdTaskAnswers,
     thirdTaskAnswerTimes: state.thirdTaskAnswerTimes,
     thirdTaskCorrect: state.thirdTaskCorrect,
     setThirdTaskCorrect: state.setThirdTaskCorrect,
@@ -51,6 +54,7 @@ export function ThirdTask() {
       ...sortedFirstTaskImages,
       ...sortedThirdTaskImages,
       ...thirdTaskAnswers,
+      ...sortedThirdTaskAnswers,
       ...thirdTaskAnswerTimes,
       ...thirdTaskCorrect,
     }

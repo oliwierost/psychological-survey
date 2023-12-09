@@ -7,9 +7,8 @@ import { getRandomImages } from "storage/images"
 import { useFirestore, useFirestoreDocData, useStorage } from "reactfire"
 import { useSurveyStore } from "storage/survey-store"
 import { getDownloadURL, ref } from "firebase/storage"
-import { doc, query } from "firebase/firestore"
+import { doc } from "firebase/firestore"
 import { Client, HydrationProvider } from "react-hydration-provider"
-import { nanoid } from "nanoid"
 import { useRouter } from "next/router"
 
 export default function index() {
@@ -96,7 +95,6 @@ export default function index() {
   const setSurveyId = () => {
     setId(id as string)
   }
-
   useEffect(() => {
     resetStore()
     setImages()
