@@ -29,6 +29,8 @@ interface SurveyStore {
   setSortedThirdTaskAnswers: (idx: number) => void
   thirdTaskAnswerTimes: number[]
   setThirdTaskAnswerTimes: (indexes: number[], time: number) => void
+  sortedThirdTaskTimes: object
+  setSortedThirdTaskTimes: (idx: number) => void
   thirdTaskCorrect: string[]
   setThirdTaskCorrect: (indexes: number[], correct: string) => void
   currentLevel: number
@@ -69,6 +71,7 @@ const initialState = {
   thirdTaskDownloadURLs: [],
   thirdTaskAnswers: [],
   sortedThirdTaskAnswers: {},
+  sortedThirdTaskTimes: {},
   thirdTaskAnswerTimes: [],
   thirdTaskCorrect: [],
   currentLevel: 1,
@@ -121,6 +124,10 @@ export const useSurveyStore = create(
       setThirdTaskAnswerTimes: (indexes, time) =>
         set({
           thirdTaskAnswerTimes: setThirdTaskAnswerTimes(indexes, time, get),
+        }),
+      setSortedThirdTaskTimes: (idx) =>
+        set({
+          sortedThirdTaskTimes: setSortedThirdTaskTimes(idx, get),
         }),
       setThirdTaskCorrect: (indexes, correct) =>
         set({
@@ -243,5 +250,33 @@ function setSortedThirdTaskAnswers(idx, get) {
   return {
     ...sortedAnswers,
     [`zad3_odp_${propName}`]: answer,
+  }
+}
+
+function setSortedThirdTaskTimes(idx, get) {
+  const sortedTimes = get().sortedThirdTaskTimes
+  const sortedThirdTaskImages = get().sortedThirdTaskImages
+  const thirdTaskTimes = get().thirdTaskAnswerTimes
+  const time = thirdTaskTimes[`zdj${idx + 1}_czas1`]
+  const thirdTaskImages = get().thirdTaskImages
+  const image = thirdTaskImages[`zad3_zdj${idx + 1}`]
+  let propName
+  Object.values(sortedThirdTaskImages).forEach((img) => {
+    if (img == image) {
+      const key = Object.keys(sortedThirdTaskImages).find(
+        (key) => sortedThirdTaskImages[key] === img
+      )
+      const keySplit = key.split("_")
+      if (key.includes("filler")) {
+        propName = keySplit[1] + "_" + keySplit[2]
+      } else {
+        propName = keySplit[1]
+      }
+    }
+  })
+
+  return {
+    ...sortedTimes,
+    [`zad3_czas_${propName}`]: time,
   }
 }
