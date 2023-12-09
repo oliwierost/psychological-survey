@@ -31,6 +31,8 @@ interface SurveyStore {
   setThirdTaskAnswerTimes: (indexes: number[], time: number) => void
   sortedThirdTaskTimes: object
   setSortedThirdTaskTimes: (idx: number) => void
+  sortedThirdTaskCorrect: object
+  setSortedThirdTaskCorrect: (idx: number) => void
   thirdTaskCorrect: string[]
   setThirdTaskCorrect: (indexes: number[], correct: string) => void
   currentLevel: number
@@ -72,6 +74,7 @@ const initialState = {
   thirdTaskAnswers: [],
   sortedThirdTaskAnswers: {},
   sortedThirdTaskTimes: {},
+  sortedThirdTaskCorrect: {},
   thirdTaskAnswerTimes: [],
   thirdTaskCorrect: [],
   currentLevel: 1,
@@ -124,6 +127,10 @@ export const useSurveyStore = create(
       setThirdTaskAnswerTimes: (indexes, time) =>
         set({
           thirdTaskAnswerTimes: setThirdTaskAnswerTimes(indexes, time, get),
+        }),
+      setSortedThirdTaskCorrect: (idx) =>
+        set({
+          sortedThirdTaskCorrect: setSortedThirdTaskCorrect(idx, get),
         }),
       setSortedThirdTaskTimes: (idx) =>
         set({
@@ -278,5 +285,33 @@ function setSortedThirdTaskTimes(idx, get) {
   return {
     ...sortedTimes,
     [`zad3_czas_${propName}`]: time,
+  }
+}
+
+function setSortedThirdTaskCorrect(idx, get) {
+  const sortedCorrect = get().sortedThirdTaskCorrect
+  const sortedThirdTaskImages = get().sortedThirdTaskImages
+  const thirdTaskCorrect = get().thirdTaskCorrect
+  const correct = thirdTaskCorrect[`zdj${idx + 1}_pop1`]
+  const thirdTaskImages = get().thirdTaskImages
+  const image = thirdTaskImages[`zad3_zdj${idx + 1}`]
+  let propName
+  Object.values(sortedThirdTaskImages).forEach((img) => {
+    if (img == image) {
+      const key = Object.keys(sortedThirdTaskImages).find(
+        (key) => sortedThirdTaskImages[key] === img
+      )
+      const keySplit = key.split("_")
+      if (key.includes("filler")) {
+        propName = keySplit[1] + "_" + keySplit[2]
+      } else {
+        propName = keySplit[1]
+      }
+    }
+  })
+  console.log(`zad3_pop_${propName}`, correct)
+  return {
+    ...sortedCorrect,
+    [`zad3_pop_${propName}`]: correct,
   }
 }

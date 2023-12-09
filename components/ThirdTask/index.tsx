@@ -25,6 +25,9 @@ export function ThirdTask() {
     thirdTaskCorrect,
     setThirdTaskCorrect,
     sortedThirdTaskAnswers,
+    sortedThirdTaskTimes,
+    setSortedThirdTaskCorrect,
+    sortedThirdTaskCorrect,
     questions,
   } = useSurveyStore((state) => ({
     setCurrentTask: state.setCurrentTask,
@@ -40,6 +43,9 @@ export function ThirdTask() {
     thirdTaskAnswerTimes: state.thirdTaskAnswerTimes,
     thirdTaskCorrect: state.thirdTaskCorrect,
     setThirdTaskCorrect: state.setThirdTaskCorrect,
+    setSortedThirdTaskCorrect: state.setSortedThirdTaskCorrect,
+    sortedThirdTaskTimes: state.sortedThirdTaskTimes,
+    sortedThirdTaskCorrect: state.sortedThirdTaskCorrect,
     questions: state.questions,
   }))
   const router = useRouter()
@@ -47,6 +53,7 @@ export function ThirdTask() {
 
   const updateSheet = async () => {
     if (id === undefined) return
+    console.log(sortedThirdTaskTimes)
     const data = {
       id: id,
       ...firstTaskImages,
@@ -57,9 +64,11 @@ export function ThirdTask() {
       ...sortedThirdTaskAnswers,
       ...thirdTaskAnswerTimes,
       ...thirdTaskCorrect,
+      ...sortedThirdTaskTimes,
+      ...sortedThirdTaskCorrect,
     }
     axios.post(
-      "https://script.google.com/macros/s/AKfycbzzFQSoOLTJqApJciDfIDJoHVO6Br3c9Q42hFDR7g_d1zo9DSphAyieFQXSrBW9LXrCcg/exec",
+      "https://script.google.com/macros/s/AKfycbxPu2k-FfNOUhrVoAXBQXSU6LYwz0IGNmIWatugB9CCEHNMRorSOi-4p2Hh_Kb0UHs0cQ/exec",
       JSON.stringify(data)
     )
   }
@@ -79,6 +88,7 @@ export function ThirdTask() {
 
   const handleClick = async () => {
     checkAnswer()
+    setSortedThirdTaskCorrect(thirdTaskIndex)
     if (thirdTaskIndex < Object.values(thirdTaskImages).length - 1) {
       setThirdTaskIndex()
     }
