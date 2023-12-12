@@ -12,6 +12,7 @@ import { useRouter } from "next/router"
 
 export function ThirdTask() {
   const [isReady, setIsReady] = useState(false)
+  const [isSheetUpdated, setIsSheetUpdated] = useState(false)
   const {
     setCurrentTask,
     firstTaskImages,
@@ -52,7 +53,7 @@ export function ThirdTask() {
   const { id } = router.query
 
   const updateSheet = async () => {
-    if (id === undefined) return
+    if (id === undefined || isSheetUpdated) return
     const data = {
       id: id,
       ...firstTaskImages,
@@ -67,9 +68,10 @@ export function ThirdTask() {
       ...sortedThirdTaskCorrect,
     }
     axios.post(
-      "https://script.google.com/macros/s/AKfycbw6R0zkvpM1vZ8jxM_QQyihAo5ZcwMb0hhiCmhpEyYF6C_QU8Iqn0cZF9FIBZS7UQ_Byw/exec",
+      "https://script.google.com/macros/s/AKfycbygNAMgyhnfouzf8TwqC1sYjFRiaD91fX25f559JlkhXrh0sFVaephFONGSGYD-jxF6Fg/exec",
       JSON.stringify(data)
     )
+    setIsSheetUpdated(true)
   }
 
   const checkAnswer = () => {

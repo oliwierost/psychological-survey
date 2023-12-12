@@ -48,7 +48,7 @@ interface SurveyStore {
 }
 
 const initialState = {
-  currentTask: 0,
+  currentTask: 3,
   sortedAnimals: {
     pies: [],
     kot: [],
