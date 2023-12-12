@@ -309,7 +309,6 @@ function setSortedThirdTaskCorrect(idx, get) {
       }
     }
   })
-  console.log(`zad3_pop_${propName}`, correct)
   return {
     ...sortedCorrect,
     [`zad3_pop_${propName}`]: correct,

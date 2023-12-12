@@ -53,7 +53,6 @@ export function ThirdTask() {
 
   const updateSheet = async () => {
     if (id === undefined) return
-    console.log(sortedThirdTaskTimes)
     const data = {
       id: id,
       ...firstTaskImages,
@@ -68,7 +67,7 @@ export function ThirdTask() {
       ...sortedThirdTaskCorrect,
     }
     axios.post(
-      "https://script.google.com/macros/s/AKfycbxPu2k-FfNOUhrVoAXBQXSU6LYwz0IGNmIWatugB9CCEHNMRorSOi-4p2Hh_Kb0UHs0cQ/exec",
+      "https://script.google.com/macros/s/AKfycbw6R0zkvpM1vZ8jxM_QQyihAo5ZcwMb0hhiCmhpEyYF6C_QU8Iqn0cZF9FIBZS7UQ_Byw/exec",
       JSON.stringify(data)
     )
   }
