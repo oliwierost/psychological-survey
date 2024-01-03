@@ -16,7 +16,7 @@ export default function admin() {
   const [toastOpen, setToastOpen] = useState(false)
 
   const handleClick = () => {
-    if (adminKey === process.env.NEXT_PUBLIC_ADMIN_KEY) {
+    if (adminKey === "admin") {
       setIsLoggedIn(true)
     } else {
       setToastOpen(true)
