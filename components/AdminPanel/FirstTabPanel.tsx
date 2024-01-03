@@ -180,66 +180,9 @@ export function FirstTabPanel({ value, index, settings }: TabPanelProps) {
     <Stack role="tabpanel">
       {value === index && (
         <Stack spacing={2} position="relative">
-          <BeigePaper>
-            <Stack justifyContent="space-evenly" direction="row" spacing={2}>
-              <BeigeButton width="18rem" onClick={() => handleSave()}>
-                Zapisz
-              </BeigeButton>
-              <Divider orientation="vertical" flexItem />
-              <BeigeButton width="18rem" onClick={() => handleReset()}>
-                Przywróć domyślne
-              </BeigeButton>
-            </Stack>
-          </BeigePaper>
-          <BeigePaper>
-            <Stack
-              direction="row"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <Typography alignSelf="center">
-                Zmień liczbę losowanych zdjęć z każdego folderu (poza "fillers")
-              </Typography>
-              <Divider orientation="vertical" flexItem />
-              <OutlinedInput
-                type="number"
-                value={randomAnimals}
-                onChange={(e) =>
-                  setRandomAnimals(e.target.value as unknown as number)
-                }
-              />
-            </Stack>
-          </BeigePaper>
-          <BeigePaper>
-            <Stack
-              direction="row"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <Typography alignSelf="center">
-                Zmień liczbę losowanych zdjęć z folderu "fillers"
-              </Typography>
-              <Divider orientation="vertical" flexItem />
-              <OutlinedInput
-                type="number"
-                value={randomFillers}
-                onChange={(e) =>
-                  setRandomFillers(e.target.value as unknown as number)
-                }
-              />
-            </Stack>
-          </BeigePaper>
           <Stack direction="row" height="100%" spacing={8} alignItems="center">
             <Stack height="100%" pb="5rem" width="100%">
               <BeigePaper maxHeight="100%" width="100%">
-                <Typography>
-                  <span style={{ fontWeight: 700 }}>Uwaga!</span> Usuwanie i
-                  dodawanie zdjęć odbywa się w czasie rzeczywistym.
-                </Typography>
-                <Typography>
-                  Przyciski "Zapisz" i "Przywróć domyślne" dotyczą tylko liczby
-                  losowanych zdjęć.
-                </Typography>
                 <List
                   component="div"
                   disablePadding
