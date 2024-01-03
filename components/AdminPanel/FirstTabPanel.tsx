@@ -183,6 +183,12 @@ export function FirstTabPanel({ value, index, settings }: TabPanelProps) {
           <Stack direction="row" height="100%" spacing={8} alignItems="center">
             <Stack height="100%" pb="5rem" width="100%">
               <BeigePaper maxHeight="100%" width="100%">
+                <Typography>
+                  <span style={{ fontWeight: 700 }}>Uwaga!</span> Dodawanie i
+                  usuwanie zdjęć wymaga wprowadzenia zmian w nagłówkach tabeli w
+                  Arkuszu Google. W celu dodania nowego folderu (nowej grupy
+                  zwierząt) zaleca się skontaktowanie z twórcami oprogramowania.
+                </Typography>
                 <List
                   component="div"
                   disablePadding
